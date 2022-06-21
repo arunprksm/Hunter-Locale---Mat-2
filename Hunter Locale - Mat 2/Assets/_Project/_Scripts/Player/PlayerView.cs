@@ -6,8 +6,16 @@ using UnityEngine;
 public class PlayerView : MonoBehaviour
 {
     public PlayerController PlayerController;
-    internal Rigidbody Rigidbody;
+    public Rigidbody Rigidbody;
+    public Animator Animator; 
     public CharacterController CharacterController;
+    internal Vector3 Velocity;
+    public float gravity = -9.81f;
+    public Transform GroundCheck;
+    public float groundDistance = 0.4f;
+    public LayerMask groundMask;
+
+    internal bool isGrounded;
 
     internal float playerMoveVertical = 0f;
     internal float playerMoveHorizontal = 0f;
@@ -36,11 +44,23 @@ public class PlayerView : MonoBehaviour
     private void Update()
     {
         PlayerInput();
+        HandleGravity();
+    }
+
+    private void HandleGravity()
+    {
+        isGrounded = Physics.CheckSphere(GroundCheck.position, groundDistance, groundMask);
+        if (isGrounded && Velocity.y < 0)
+        {
+            Velocity.y = -2f;
+        }
+        PlayerController.Gravitycontrol();
     }
 
     private void InitializeComponents()
     {
         Rigidbody = GetComponent<Rigidbody>();
+        Animator = GetComponent<Animator>();
     }
 
     public void PlayerInput()
