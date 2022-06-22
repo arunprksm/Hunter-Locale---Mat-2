@@ -11,6 +11,7 @@ public class PlayerView : MonoBehaviour
     public CharacterController CharacterController;
     internal Vector3 Velocity;
     public float gravity = -9.81f;
+    public float groundedGravity = -10;
     public Transform GroundCheck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
@@ -52,7 +53,7 @@ public class PlayerView : MonoBehaviour
         isGrounded = Physics.CheckSphere(GroundCheck.position, groundDistance, groundMask);
         if (isGrounded && Velocity.y < 0)
         {
-            Velocity.y = -2f;
+            Velocity.y = groundedGravity;
         }
         PlayerController.Gravitycontrol();
     }

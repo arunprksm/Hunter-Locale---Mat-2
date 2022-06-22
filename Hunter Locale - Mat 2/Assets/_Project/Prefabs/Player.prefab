@@ -101,7 +101,8 @@ MonoBehaviour:
   Rigidbody: {fileID: 0}
   Animator: {fileID: 7861829427764838844}
   CharacterController: {fileID: 6609536778925845019}
-  gravity: -29.43
+  gravity: -20
+  groundedGravity: -10
   GroundCheck: {fileID: 911970975071715954}
   groundDistance: 0.4
   groundMask:

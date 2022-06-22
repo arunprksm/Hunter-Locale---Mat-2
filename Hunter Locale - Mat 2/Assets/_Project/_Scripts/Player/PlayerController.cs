@@ -49,7 +49,7 @@ public class PlayerController
 
     internal void Gravitycontrol()
     {
-        PlayerView.Velocity.y += PlayerView.gravity * Time.deltaTime;
-        PlayerView.CharacterController.Move(PlayerView.Velocity * Time.deltaTime);
+        PlayerView.Velocity.y += PlayerView.gravity * Time.deltaTime * 2;
+        PlayerView.CharacterController.Move(PlayerView.Velocity * Time.deltaTime );
     }
 }
