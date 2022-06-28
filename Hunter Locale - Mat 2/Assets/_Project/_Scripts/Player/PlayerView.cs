@@ -8,10 +8,12 @@ public class PlayerView : MonoBehaviour
     public PlayerController PlayerController;
     public Animator PlayerAnimator;
     public CharacterController PlayerCharacterController;
+
     internal Vector3 Velocity;
     public float gravity = -9.81f;
     public float groundedGravity = -10;
     public Transform GroundCheck;
+
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
@@ -32,15 +34,6 @@ public class PlayerView : MonoBehaviour
     public bool fired;
     internal bool playerDead;
 
-    private void Awake()
-    {
-        InitializeComponents();
-    }
-
-    private void Start()
-    {
-
-    }
     private void Update()
     {
         PlayerInput();
@@ -61,11 +54,6 @@ public class PlayerView : MonoBehaviour
         PlayerController.Gravitycontrol();
     }
 
-    private void InitializeComponents()
-    {
-
-    }
-
     public void PlayerInput()
     {
         playerMoveVertical = Input.GetAxisRaw("Vertical");
@@ -78,5 +66,7 @@ public class PlayerView : MonoBehaviour
     private void ControlPlayer()
     {
         PlayerController.PlayerMovement();
+        PlayerController.PlayerAttack();
     }
+
 }

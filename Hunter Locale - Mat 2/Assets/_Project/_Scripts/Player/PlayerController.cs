@@ -51,4 +51,9 @@ public class PlayerController
         PlayerView.Velocity.y += PlayerView.gravity * Time.deltaTime * 2;
         PlayerView.PlayerCharacterController.Move(PlayerView.Velocity * Time.deltaTime );
     }
+
+    internal void PlayerAttack()
+    {
+        
+    }
 }
