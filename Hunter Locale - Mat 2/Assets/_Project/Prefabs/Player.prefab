@@ -118,6 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f10f35a6103dbf4980a35f87f7a1a74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerAttackTypes: {fileID: 0}
+  EnemyView: {fileID: 0}
   PlayerAnimator: {fileID: 7861829427764838844}
   PlayerCharacterController: {fileID: 6609536778925845019}
   gravity: -20
@@ -131,6 +133,7 @@ MonoBehaviour:
   ShellPrefab: {fileID: 0}
   fireTransform: {fileID: 0}
   fired: 0
+  attackCooldown: 2
 --- !u!1 &8749769312099299516
 GameObject:
   m_ObjectHideFlags: 0

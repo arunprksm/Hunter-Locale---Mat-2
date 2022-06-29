@@ -17,6 +17,8 @@ public class EnemyService : MonoBehaviour
     {
         CreatePlayer(EnemyPosition[0]);
         CreatePlayer(EnemyPosition[1]);
+        CreatePlayer(EnemyPosition[2]);
+
     }
 
     private EnemyController CreatePlayer(GameObject pos)
