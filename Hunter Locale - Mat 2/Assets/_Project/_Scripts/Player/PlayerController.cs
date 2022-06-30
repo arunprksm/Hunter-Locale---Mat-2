@@ -55,8 +55,9 @@ public class PlayerController
     {
         PlayerView.attacks = new string[] { "Punch", "Combo", "Kick", "TakeDownAttack" };
         //Attack nothing in case target is null
-        if (target == null)
+        if (target == null && PlayerView.PlayerAnimator.GetBool("IsMoving"))
         {
+            PlayerView.PlayerAnimator.SetBool("IsMoving", true);
             return;
         }
 
@@ -90,7 +91,7 @@ public class PlayerController
         if (target == null)
             return;
 
-        if (PlayerView.attackCoroutine != null);
+        if (PlayerView.attackCoroutine != null)
             PlayerView.StopCoroutine(PlayerView.attackCoroutine);
         
         PlayerView.attackCoroutine = PlayerView.StartCoroutine(AttackCoroutine(cooldown));
@@ -100,7 +101,7 @@ public class PlayerController
         PlayerView.isAttackingEnemy = true;
         yield return new WaitForSeconds(duration);
         PlayerView.isAttackingEnemy = false;
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(duration);
     }
 }
 
