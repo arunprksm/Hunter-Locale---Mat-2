@@ -59,7 +59,6 @@ public class PlayerView : MonoBehaviour
     {
         PlayerAttackTypes = FindObjectOfType<PlayerAttackTypes>();
         //EnemyView = FindObjectOfType<EnemyView>();
-        distToEnemy = Vector3.Distance(gameObject.transform.position, EnemyView.transform.position);
     }
     private void HandleGravity()
     {
@@ -95,7 +94,8 @@ public class PlayerView : MonoBehaviour
         for (int i = 0; i < colliders.Length; i++)
         {
             EnemyView = colliders[i].GetComponent<EnemyView>();
-            if(distToEnemy < targetCheckRadius && !isAttackingEnemy)
+            distToEnemy = Vector3.Distance(gameObject.transform.position, EnemyView.transform.position);
+            if (distToEnemy < targetCheckRadius && !isAttackingEnemy)
                 PlayerController.PlayerAttack(EnemyView);
         }
     }

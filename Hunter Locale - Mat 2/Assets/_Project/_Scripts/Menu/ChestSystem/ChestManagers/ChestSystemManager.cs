@@ -3,28 +3,35 @@ using TMPro;
 
 public class ChestSystemManager : SingletonGenerics<ChestSystemManager>
 {
-    [SerializeField] internal TextMeshProUGUI TimerText;
-    [SerializeField] internal GameObject ChestSlots;
-    [SerializeField] internal GameObject SpwanChestButton;
+    //[SerializeField] internal TextMeshProUGUI TimerText;
+    [SerializeField] internal GameObject Middle_UI;
+    [SerializeField] internal GameObject Buttons_UI;
     [SerializeField] internal GameObject ChestPopUp;
     [SerializeField] internal GameObject ChestPopUpUnlocking;
 
-    [SerializeField] private TextMeshProUGUI valueOfCoins;
     [SerializeField] private TextMeshProUGUI valueOfGems;
+    [SerializeField] private TextMeshProUGUI valueOfCoins;
     [SerializeField] internal TextMeshProUGUI rewardReceivedText;
 
+    private void Start()
+    {
+        Middle_UI.SetActive(true);
+        Buttons_UI.SetActive(true);
+        ChestPopUp.SetActive(false);
+        ChestPopUpUnlocking.SetActive(false);
+    }
     public void CloseUnlockChestPopup()
     {
-        ChestSlots.SetActive(true);
-        SpwanChestButton.SetActive(true);
+        Middle_UI.SetActive(true);
+        Buttons_UI.SetActive(true);
         ChestPopUp.SetActive(false);
         ChestPopUpUnlocking.SetActive(false);
     }
     public void OpenUnlockChestPopupUnlocking()
     {
         ChestPopUpUnlocking.SetActive(true);
-        SpwanChestButton.SetActive(false);
-        ChestSlots.SetActive(false);
+        Buttons_UI.SetActive(false);
+        Middle_UI.SetActive(false);
         ChestPopUp.SetActive(false);
     }
 
@@ -40,8 +47,8 @@ public class ChestSystemManager : SingletonGenerics<ChestSystemManager>
 
     public void CloseButton()
     {
-        SpwanChestButton.SetActive(true);
-        ChestSlots.SetActive(true);
+        Buttons_UI.SetActive(true);
+        Middle_UI.SetActive(true);
         ChestPopUp.SetActive(false);
         ChestPopUpUnlocking.SetActive(false);
     }

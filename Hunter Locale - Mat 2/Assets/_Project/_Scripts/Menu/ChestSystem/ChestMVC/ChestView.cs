@@ -35,11 +35,12 @@ public class ChestView : MonoBehaviour
     {
         FillChestButton.image.sprite = EmptyChestSprite;
         currentState = ChestState.None;
+        TimerText.text = null;
     }
 
     public void ChestButtonClick()
     {
         if(ChestController != null)
-        ChestController.ChestButtonClick_Controller();
+            ChestController.ChestButtonClick_Controller();
     }
 }

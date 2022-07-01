@@ -37,16 +37,22 @@ public class ChestController
         ChestView.FillChestButton.image.sprite = ChestModel.ChestSprite_Unlocked;
         ChestView.currentState = ChestState.UnLocked;
     }
+
+
     internal void ChestButtonClick_Controller()
     {
         ChestService.Instance.SelectedController = this;
         if (ChestView.currentState == ChestState.Locked)
         {
-
+            ChestSystemManager.Instance.Middle_UI.SetActive(false);
+            ChestSystemManager.Instance.Buttons_UI.SetActive(false);
+            ChestSystemManager.Instance.ChestPopUp.SetActive(true);
+            ChestPopUpScript.Instance.SetChestPopUpValues(ChestModel, ChestView);
         }
         else if (ChestView.currentState == ChestState.Unlocking)
         {
             ChestSystemManager.Instance.OpenUnlockChestPopupUnlocking();
+            ChestPopUpScript.Instance.SetChestPopUpValues(ChestModel, ChestView);
         }
         else if (ChestView.currentState == ChestState.UnLocked)
         {
