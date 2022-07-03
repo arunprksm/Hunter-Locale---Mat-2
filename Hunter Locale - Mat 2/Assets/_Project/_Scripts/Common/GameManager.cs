@@ -9,10 +9,10 @@ public class GameManager : SingletonGenerics<GameManager>
     public int currentLevel = 0;
     public void NextScene()
     {
-        currentLevel = GetInt("CurrentLevel");
+        currentLevel = PlayerPrefs_GetInt("CurrentLevel");
         currentLevel++;
-        SetInt("CurrentLevel", currentLevel);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + GetInt("CurrentLevel"));
+        PlayerPrefs_SetInt("CurrentLevel", currentLevel);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + PlayerPrefs_GetInt("CurrentLevel"));
     }
 
     public void ClaimChest()
@@ -22,24 +22,10 @@ public class GameManager : SingletonGenerics<GameManager>
     }
 
     public void SetGameManagerLevelCompleted(bool value) => LevelCompleted = value;
-    //{
-    //    LevelCompleted = value;
-    //}
     public bool GetGameManagerLevelCompleted() => LevelCompleted;
-    //{
-    //    return LevelCompleted;
-    //}
-
-    public void SetInt(string KeyName, int Value)
-    {
-        PlayerPrefs.SetInt(KeyName, Value);
-    }
-
-    public int GetInt(string KeyName)
-    {
-        return PlayerPrefs.GetInt(KeyName);
-    }
-
+    public void PlayerPrefs_SetInt(string KeyName, int Value) => PlayerPrefs.SetInt(KeyName, Value);
+    public int PlayerPrefs_GetInt(string KeyName) => PlayerPrefs.GetInt(KeyName);
+    
     public void ResetPlayerPrefs()
     {
         PlayerPrefs.DeleteAll();

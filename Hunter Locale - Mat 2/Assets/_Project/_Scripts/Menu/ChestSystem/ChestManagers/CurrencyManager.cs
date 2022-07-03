@@ -10,34 +10,34 @@ public class CurrencyManager : SingletonGenerics<CurrencyManager>
 
     private void Start()
     {
-        coins = GameManager.Instance.GetInt("Coins");
-        gems = GameManager.Instance.GetInt("Gems");
+        coins = GameManager.Instance.PlayerPrefs_GetInt("Coins");
+        gems = GameManager.Instance.PlayerPrefs_GetInt("Gems");
         ChestSystemManager.Instance.UpdateGemsUI(gems);
         ChestSystemManager.Instance.UpdateCoinsUI(coins);
     }
     public void IncreaseCoins(int valueToIncrease)
     {
         coins += valueToIncrease;
-        GameManager.Instance.SetInt("Coins", coins);
+        GameManager.Instance.PlayerPrefs_SetInt("Coins", coins);
         ChestSystemManager.Instance.UpdateCoinsUI(coins);
     }
     public void DecreaseCoins(int valueToDecrease)
     {
         coins -= valueToDecrease;
-        GameManager.Instance.SetInt("Coins", coins);
+        GameManager.Instance.PlayerPrefs_SetInt("Coins", coins);
         ChestSystemManager.Instance.UpdateCoinsUI(coins);
     }
     public void IncreaseGems(int valueToIncrease)
     {
         gems += valueToIncrease;
-        GameManager.Instance.SetInt("Gems", gems);
+        GameManager.Instance.PlayerPrefs_SetInt("Gems", gems);
 
         ChestSystemManager.Instance.UpdateGemsUI(gems);
     }
     public void DecreaseGems(int valueToDecrease)
     {
         gems -= valueToDecrease;
-        GameManager.Instance.SetInt("Gems", gems);
+        GameManager.Instance.PlayerPrefs_SetInt("Gems", gems);
         ChestSystemManager.Instance.UpdateGemsUI(gems);
     }
 }

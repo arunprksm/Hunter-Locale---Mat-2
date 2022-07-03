@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-
 public class ChestView : MonoBehaviour
 {
     public ChestController ChestController;
@@ -35,11 +34,12 @@ public class ChestView : MonoBehaviour
     {
         FillChestButton.image.sprite = EmptyChestSprite;
         currentState = ChestState.None;
+        TimerText.text = null;
     }
 
     public void ChestButtonClick()
     {
         if(ChestController != null)
-        ChestController.ChestButtonClick_Controller();
+            ChestController.ChestButtonClick_Controller();
     }
 }

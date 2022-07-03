@@ -14,7 +14,6 @@ public class PlayerController
         PlayerView = GameObject.Instantiate(playerView);
         PlayerView.PlayerController = this;
         playerView.transform.position = spawnPlayer;
-        //OnEnableFunction();
     }
 
     internal void PlayerMovement()
@@ -53,6 +52,7 @@ public class PlayerController
 
     internal void PlayerAttack(EnemyView target)
     {
+        
         PlayerView.attacks = new string[] { "Punch", "Combo", "Kick", "TakeDownAttack" };
         //Attack nothing in case target is null
         if (target == null && PlayerView.PlayerAnimator.GetBool("IsMoving"))
@@ -64,22 +64,22 @@ public class PlayerController
         if (PlayerView.PlayerAttackTypes.GetCurrentAttackType() == PlayerAttackTypes.AttackType.Punch)
         {
             string attackString = PlayerView.attacks[0];
-            AttackType(attackString, PlayerView.attackCooldown, target);
+            AttackType(attackString, 1f, target);
         }
         else if (PlayerView.PlayerAttackTypes.GetCurrentAttackType() == PlayerAttackTypes.AttackType.Combo)
         {
             string attackString = PlayerView.attacks[1];
-            AttackType(attackString, PlayerView.attackCooldown, target);
+            AttackType(attackString, 1f, target);
         }
         else if (PlayerView.PlayerAttackTypes.GetCurrentAttackType() == PlayerAttackTypes.AttackType.Kick)
         {
             string attackString = PlayerView.attacks[2];
-            AttackType(attackString, PlayerView.attackCooldown, target);
+            AttackType(attackString, 3f, target);
         }
         else if (PlayerView.PlayerAttackTypes.GetCurrentAttackType() == PlayerAttackTypes.AttackType.TakeDown)
         {
             string attackString = PlayerView.attacks[3];
-            AttackType(attackString, PlayerView.attackCooldown, target);
+            AttackType(attackString, 5f, target);
         }
     }
 
@@ -104,10 +104,3 @@ public class PlayerController
         yield return new WaitForSeconds(duration);
     }
 }
-
-
-
-        //if (PlayerView.PlayerAttackTypes.GetCurrentAttackType() == PlayerAttackTypes.AttackType.TakeDown)
-        //{
-        //    PlayerView.PlayerAnimator.SetTrigger("TakeDownAttack");
-        //}

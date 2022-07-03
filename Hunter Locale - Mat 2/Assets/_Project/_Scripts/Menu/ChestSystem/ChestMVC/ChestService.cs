@@ -24,4 +24,17 @@ public class ChestService : SingletonGenerics<ChestService>
         SelectedController.EnteringUnlockedState();
         ChestSystemManager.Instance.CloseButton();
     }
+
+    public void UseGemsButton()
+    {
+        if (CurrencyManager.Instance.gems > SelectedController.GetGemCost())
+        {
+            CurrencyManager.Instance.DecreaseGems(valueToDecrease: SelectedController.GetGemCost());
+            OpenNowButton();
+        }
+        else if (CurrencyManager.Instance.gems < SelectedController.GetGemCost())
+        {
+            Debug.Log("Gem Is Not Enough");
+        }
+    }
 }

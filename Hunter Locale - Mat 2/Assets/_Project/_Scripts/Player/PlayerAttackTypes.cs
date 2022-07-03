@@ -15,7 +15,6 @@ public class PlayerAttackTypes : MonoBehaviour
     private void Update()
     {
         ControlButtons();
-        Debug.Log("Current attack " + currentAttack);
     }
 
     private void LateUpdate()
