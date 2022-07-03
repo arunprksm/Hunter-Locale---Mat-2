@@ -10,16 +10,20 @@ public class EnemyStateManager : MonoBehaviour
     internal EnemyPatrollingState EnemyPatrollingState = new EnemyPatrollingState();
     internal EnemyChaseState EnemyChaseState = new EnemyChaseState();
     internal EnemyAttackState EnemyAttackState = new EnemyAttackState();
+    internal EnemyTakingHitState EnemyTakingHitState = new EnemyTakingHitState();
 
     public EnemyView EnemyView;
+    public PlayerView PlayerView;
     public FieldOfView FOV;
     public NavMeshAgent agent;
-    public List<EnemyWaypoint> wayPoints; // = new List<EnemyWaypoint>();
-    //public ArrayList wayPoints;
+    public List<EnemyWaypoint> wayPoints;
     internal Transform player;
     public float distToPlayer;
     public float attackRange;
     public float rotationSpeed;
+
+    public float timeBetweenAttack = 2f;
+    public bool isAlreadyAttacked = false;
 
     private void Start()
     {
@@ -35,6 +39,7 @@ public class EnemyStateManager : MonoBehaviour
     private void LateUpdate()
     {
         player = FOV.playerRef.transform;
+        PlayerView = GetComponent<PlayerView>();
     }
     private void CheckPlayer()
     {

@@ -11,11 +11,18 @@ public class EnemyController
         EnemyView = GameObject.Instantiate(enemyView);
         EnemyView.EnemyController = this;
         EnemyView.transform.position = spawnPlayer.transform.position;
-        //OnEnableFunction();
     }
     internal void Gravitycontrol()
     {
         EnemyView.Velocity.y += EnemyView.gravity * Time.deltaTime * 2;
-        //EnemyView.EnemyCharacterController.Move(EnemyView.Velocity * Time.deltaTime);
+    }
+
+    internal void EnemyAttack()
+    {
+        EnemyView.attacks = new string[] { "EPunch", "EHookPunch", "EKick" };
+
+        int a = Random.Range(0, EnemyView.attacks.Length);
+        string attackString = EnemyView.attacks[a];
+        EnemyView.EnemyAnimator.SetTrigger(attackString);
     }
 }

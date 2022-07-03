@@ -15,10 +15,10 @@ public class EnemyService : MonoBehaviour
 
     private void StartGame()
     {
-        CreatePlayer(EnemyPosition[0]);
-        CreatePlayer(EnemyPosition[1]);
-        CreatePlayer(EnemyPosition[2]);
-
+        for (int i = 0; i < EnemyPosition.Length; i++)
+        {
+            CreatePlayer(EnemyPosition[i]);
+        }
     }
 
     private EnemyController CreatePlayer(GameObject pos)

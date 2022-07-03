@@ -11,9 +11,9 @@ public class SlotManager : SingletonGenerics<SlotManager>
 
     private void Start()
     {
-        currentSlot = GameManager.Instance.GetInt("CurrentSlot");
+        currentSlot = GameManager.Instance.PlayerPrefs_GetInt("CurrentSlot");
         if(currentSlot > 2)
-            GameManager.Instance.SetInt("CurrentSlot", 0);
+            GameManager.Instance.PlayerPrefs_SetInt("CurrentSlot", 0);
     }
     public void SpawnRandomChestOnClick()
     {
@@ -41,7 +41,7 @@ public class SlotManager : SingletonGenerics<SlotManager>
         {
             if (SlotsView[i].chestIsEmpty)
             {
-                GameManager.Instance.SetInt("CurrentSlot", i);
+                GameManager.Instance.PlayerPrefs_SetInt("CurrentSlot", i);
                 return i;
             }
         }

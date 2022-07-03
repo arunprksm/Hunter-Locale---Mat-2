@@ -3,7 +3,6 @@ using TMPro;
 
 public class ChestSystemManager : SingletonGenerics<ChestSystemManager>
 {
-    //[SerializeField] internal TextMeshProUGUI TimerText;
     [SerializeField] internal GameObject Middle_UI;
     [SerializeField] internal GameObject Buttons_UI;
     [SerializeField] internal GameObject ChestPopUp;

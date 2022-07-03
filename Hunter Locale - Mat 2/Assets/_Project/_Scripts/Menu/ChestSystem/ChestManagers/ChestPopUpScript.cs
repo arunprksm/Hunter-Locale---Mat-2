@@ -11,10 +11,6 @@ public class ChestPopUpScript : SingletonGenerics<ChestPopUpScript>
     public TextMeshProUGUI ChestPopUpUnlocking_GemValue;
     public TextMeshProUGUI ChestPopUpUnlocking_TimerText;
 
-    //public Button ChestPopUp_Close;
-    //public Button ChestPopUp_OpenNow;
-    //public Button ChestPopUp_StartTimer;
-
     bool TimerRunning;
     ChestView ChestView;
     internal float unlockTimer;

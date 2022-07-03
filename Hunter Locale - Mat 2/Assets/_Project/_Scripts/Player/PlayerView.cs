@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerView : MonoBehaviour
@@ -58,12 +55,10 @@ public class PlayerView : MonoBehaviour
     private void LateUpdate()
     {
         PlayerAttackTypes = FindObjectOfType<PlayerAttackTypes>();
-        //EnemyView = FindObjectOfType<EnemyView>();
     }
     private void HandleGravity()
     {
         isGrounded = Physics.CheckSphere(GroundCheck.position, groundDistance, groundMask);
-        //isGrounded = PlayerCharacterController.isGrounded;
         if (isGrounded && Velocity.y < 0)
         {
             Velocity.y = groundedGravity;
@@ -84,8 +79,6 @@ public class PlayerView : MonoBehaviour
     {
         PlayerController.PlayerMovement();
         CheckEnemy();
-        //if(distToEnemy < 5f && !isAttackingEnemy)
-        //PlayerController.PlayerAttack(EnemyView);
     }
 
     private void CheckEnemy()

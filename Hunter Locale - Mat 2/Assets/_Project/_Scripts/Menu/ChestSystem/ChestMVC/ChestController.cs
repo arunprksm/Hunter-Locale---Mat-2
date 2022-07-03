@@ -108,7 +108,6 @@ public class ChestController
     }
     public int GetGemCost()
     {
-        //ChestView.unlockTimer = ChestModel.UnlockTimer;
         return (int)Mathf.Ceil(ChestView.unlockTimer / 2);
     }
 }

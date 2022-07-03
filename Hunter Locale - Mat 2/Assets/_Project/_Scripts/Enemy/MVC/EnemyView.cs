@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,7 +10,6 @@ public class EnemyView : MonoBehaviour
     public EnemyWaypoint EnemyWaypoint;
     public EnemyStateManager EnemyStateManager;
     public Animator EnemyAnimator;
-    //public CharacterController EnemyCharacterController;
     internal Vector3 Velocity;
     public float gravity = -9.81f;
     public float groundedGravity = -10;
@@ -17,6 +17,7 @@ public class EnemyView : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
     public bool isGrounded;
+    internal static string[] attacks;
 
     private void Update()
     {
@@ -30,6 +31,11 @@ public class EnemyView : MonoBehaviour
             Velocity.y = groundedGravity;
         }
         EnemyController.Gravitycontrol();
+    }
+    
+    internal void EnemyAttackFunction()
+    {
+        EnemyController.EnemyAttack();
     }
 
     internal EnemyWaypoint CreateWaypoint(int position)
