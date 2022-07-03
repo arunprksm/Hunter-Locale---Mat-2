@@ -20,8 +20,6 @@ public class PlayerController
 
     internal void PlayerMovement()
     {
-        //Vector3 movement = PlayerModel.PlayerSpeed * PlayerView.playerMoveVertical * Time.deltaTime * PlayerView.transform.forward;
-        //PlayerView.Rigidbody.MovePosition(PlayerView.Rigidbody.position + movement);
         Vector3 direction = new Vector3(PlayerView.playerMoveHorizontal, 0f, PlayerView.playerMoveVertical).normalized;
 
         if (direction.magnitude >= 0.1f)
@@ -30,6 +28,28 @@ public class PlayerController
             float angle = Mathf.SmoothDampAngle(PlayerView.transform.eulerAngles.y, targetAngle, ref PlayerView.turnSmoothVelocity, PlayerView.turnSmoothTime);
             PlayerView.transform.rotation = Quaternion.Euler(0f, angle, 0f);
             PlayerView.CharacterController.Move(direction * PlayerModel.PlayerSpeed * Time.deltaTime);
+            if (PlayerView.isGrounded)
+            {
+                PlayerView.Animator.SetBool("IsMoving", true);
+                //fall animation is false
+            }
+            else
+            {
+                PlayerView.Animator.SetBool("IsMoving", false);
+                //fall animation is true
+            }
+
         }
+        else
+        {
+            PlayerView.Animator.SetBool("IsMoving", false);
+            //fall animation is false
+        }
+    }
+
+    internal void Gravitycontrol()
+    {
+        PlayerView.Velocity.y += PlayerView.gravity * Time.deltaTime * 2;
+        PlayerView.CharacterController.Move(PlayerView.Velocity * Time.deltaTime );
     }
 }
