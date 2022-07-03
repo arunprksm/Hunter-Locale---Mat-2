@@ -13,6 +13,11 @@ public class ChestModel
     public int MaxGems { get; }
     public float UnlockTimer { get; }
 
+    public int CoinCost { get; }
+    public int CoinsReward { get; }
+    public int GemCost { get; }
+    public int GemsReward { get; }
+
     public ChestModel(ChestScriptableObject chestScriptableObject)
     {
         ChestName = chestScriptableObject.ChestName;

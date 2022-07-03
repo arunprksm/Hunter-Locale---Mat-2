@@ -12,4 +12,16 @@ public class ChestService : SingletonGenerics<ChestService>
         ChestController chestController = new ChestController(chestView, chestModel);
         return chestController;
     }
+
+    public void OnClickStartTimer()
+    {
+        SelectedController.EnteringUnlockingState();
+        ChestSystemManager.Instance.CloseUnlockChestPopup();
+    }
+
+    public void OpenNowButton()
+    {
+        SelectedController.EnteringUnlockedState();
+        ChestSystemManager.Instance.CloseButton();
+    }
 }

@@ -19,6 +19,7 @@ public class PlayerView : MonoBehaviour
 
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
+    public LayerMask enemyMask;
 
     internal string[] attacks;
 
@@ -41,8 +42,8 @@ public class PlayerView : MonoBehaviour
     public bool fired;
     internal bool playerDead;
     internal bool isAttackingEnemy;
-    public float attackCooldown = 2f;
-
+    public float attackCooldown = 10f;
+    private float targetCheckRadius = 5f;
 
     private void Update()
     {
@@ -57,7 +58,7 @@ public class PlayerView : MonoBehaviour
     private void LateUpdate()
     {
         PlayerAttackTypes = FindObjectOfType<PlayerAttackTypes>();
-        EnemyView = FindObjectOfType<EnemyView>();
+        //EnemyView = FindObjectOfType<EnemyView>();
         distToEnemy = Vector3.Distance(gameObject.transform.position, EnemyView.transform.position);
     }
     private void HandleGravity()
@@ -83,7 +84,19 @@ public class PlayerView : MonoBehaviour
     private void ControlPlayer()
     {
         PlayerController.PlayerMovement();
-        if(distToEnemy < 5f && !isAttackingEnemy)
-        PlayerController.PlayerAttack(EnemyView);
+        CheckEnemy();
+        //if(distToEnemy < 5f && !isAttackingEnemy)
+        //PlayerController.PlayerAttack(EnemyView);
+    }
+
+    private void CheckEnemy()
+    {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, targetCheckRadius, enemyMask);
+        for (int i = 0; i < colliders.Length; i++)
+        {
+            EnemyView = colliders[i].GetComponent<EnemyView>();
+            if(distToEnemy < targetCheckRadius && !isAttackingEnemy)
+                PlayerController.PlayerAttack(EnemyView);
+        }
     }
 }

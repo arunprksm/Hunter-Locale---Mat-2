@@ -7,7 +7,14 @@ public class SlotManager : SingletonGenerics<SlotManager>
     [SerializeField] private SlotView[] SlotsView;
     [SerializeField] private ChestScriptableObjectsLists ChestScriptableObjectsLists;
     public GameManager GameManager;
+    public int currentSlot = 0;
 
+    private void Start()
+    {
+        currentSlot = GameManager.Instance.GetInt("CurrentSlot");
+        if(currentSlot > 2)
+            GameManager.Instance.SetInt("CurrentSlot", 0);
+    }
     public void SpawnRandomChestOnClick()
     {
         int slot = CheckSlotIsEmpty();
@@ -25,14 +32,16 @@ public class SlotManager : SingletonGenerics<SlotManager>
         if (GameManager.GetGameManagerLevelCompleted())
         {
             SpawnRandomChestOnClick();
+            GameManager.Instance.SetGameManagerLevelCompleted(false);
         }
     }
     private int CheckSlotIsEmpty()
     {
-        for (int i = 0; i < SlotsView.Length; i++)
+        for (int i = currentSlot; i < SlotsView.Length; i++)
         {
             if (SlotsView[i].chestIsEmpty)
             {
+                GameManager.Instance.SetInt("CurrentSlot", i);
                 return i;
             }
         }
