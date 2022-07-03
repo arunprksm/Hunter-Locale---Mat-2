@@ -9,7 +9,7 @@ public class EnemyView : MonoBehaviour
     public EnemyWaypoint EnemyWaypoint;
     public EnemyStateManager EnemyStateManager;
     public Animator EnemyAnimator;
-    public CharacterController EnemyCharacterController;
+    //public CharacterController EnemyCharacterController;
     internal Vector3 Velocity;
     public float gravity = -9.81f;
     public float groundedGravity = -10;

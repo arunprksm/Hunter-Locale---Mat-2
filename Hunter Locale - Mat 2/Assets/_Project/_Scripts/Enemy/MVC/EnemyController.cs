@@ -16,6 +16,6 @@ public class EnemyController
     internal void Gravitycontrol()
     {
         EnemyView.Velocity.y += EnemyView.gravity * Time.deltaTime * 2;
-        EnemyView.EnemyCharacterController.Move(EnemyView.Velocity * Time.deltaTime);
+        //EnemyView.EnemyCharacterController.Move(EnemyView.Velocity * Time.deltaTime);
     }
 }
