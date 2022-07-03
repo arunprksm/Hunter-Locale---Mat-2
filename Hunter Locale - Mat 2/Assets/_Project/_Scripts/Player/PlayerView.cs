@@ -6,6 +6,9 @@ using UnityEngine;
 public class PlayerView : MonoBehaviour
 {
     public PlayerController PlayerController;
+    public PlayerAttackTypes PlayerAttackTypes;
+    public EnemyView EnemyView;
+    private float distToEnemy;
     public Animator PlayerAnimator;
     public CharacterController PlayerCharacterController;
 
@@ -16,6 +19,10 @@ public class PlayerView : MonoBehaviour
 
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
+
+    internal string[] attacks;
+
+    internal Coroutine attackCoroutine;
 
     internal bool isGrounded;
 
@@ -33,6 +40,9 @@ public class PlayerView : MonoBehaviour
 
     public bool fired;
     internal bool playerDead;
+    internal bool isAttackingEnemy;
+    public float attackCooldown = 2f;
+
 
     private void Update()
     {
@@ -42,6 +52,13 @@ public class PlayerView : MonoBehaviour
     private void FixedUpdate()
     {
         ControlPlayer();
+    }
+
+    private void LateUpdate()
+    {
+        PlayerAttackTypes = FindObjectOfType<PlayerAttackTypes>();
+        EnemyView = FindObjectOfType<EnemyView>();
+        distToEnemy = Vector3.Distance(gameObject.transform.position, EnemyView.transform.position);
     }
     private void HandleGravity()
     {
@@ -66,7 +83,7 @@ public class PlayerView : MonoBehaviour
     private void ControlPlayer()
     {
         PlayerController.PlayerMovement();
-        PlayerController.PlayerAttack();
+        if(distToEnemy < 5f && !isAttackingEnemy)
+        PlayerController.PlayerAttack(EnemyView);
     }
-
 }

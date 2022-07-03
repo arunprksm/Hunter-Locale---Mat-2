@@ -7,6 +7,7 @@ public class EnemyChaseState : EnemyBaseState
 {
     public override void EnterState(EnemyStateManager enemyStateManager)
     {
+        //throw new NotImplementedException();
     }
 
     public override void UpdateState(EnemyStateManager enemyStateManager)

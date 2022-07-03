@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class PlayerController
 {
-
     public PlayerView PlayerView { get; }
     public PlayerModel PlayerModel { get; }
 
@@ -49,11 +48,65 @@ public class PlayerController
     internal void Gravitycontrol()
     {
         PlayerView.Velocity.y += PlayerView.gravity * Time.deltaTime * 2;
-        PlayerView.PlayerCharacterController.Move(PlayerView.Velocity * Time.deltaTime );
+        PlayerView.PlayerCharacterController.Move(PlayerView.Velocity * Time.deltaTime);
     }
 
-    internal void PlayerAttack()
+    internal void PlayerAttack(EnemyView target)
     {
+        PlayerView.attacks = new string[] { "Punch", "Combo", "Kick", "TakeDownAttack" };
+        //Attack nothing in case target is null
+        if (target == null)
+        {
+            return;
+        }
+
+        if (PlayerView.PlayerAttackTypes.GetCurrentAttackType() == PlayerAttackTypes.AttackType.Punch)
+        {
+            string attackString = PlayerView.attacks[0];
+            AttackType(attackString, PlayerView.attackCooldown, target);
+        }
+        else if (PlayerView.PlayerAttackTypes.GetCurrentAttackType() == PlayerAttackTypes.AttackType.Combo)
+        {
+            string attackString = PlayerView.attacks[1];
+            AttackType(attackString, PlayerView.attackCooldown, target);
+        }
+        else if (PlayerView.PlayerAttackTypes.GetCurrentAttackType() == PlayerAttackTypes.AttackType.Kick)
+        {
+            string attackString = PlayerView.attacks[2];
+            AttackType(attackString, PlayerView.attackCooldown, target);
+        }
+        else if (PlayerView.PlayerAttackTypes.GetCurrentAttackType() == PlayerAttackTypes.AttackType.TakeDown)
+        {
+            string attackString = PlayerView.attacks[3];
+            AttackType(attackString, PlayerView.attackCooldown, target);
+        }
+    }
+
+
+    void AttackType(string attackTrigger, float cooldown, EnemyView target)
+    {
+        PlayerView.PlayerAnimator.SetTrigger(attackTrigger);
+
+        if (target == null)
+            return;
+
+        if (PlayerView.attackCoroutine != null);
+            PlayerView.StopCoroutine(PlayerView.attackCoroutine);
         
+        PlayerView.attackCoroutine = PlayerView.StartCoroutine(AttackCoroutine(cooldown));
+    }
+    IEnumerator AttackCoroutine(float duration)
+    {
+        PlayerView.isAttackingEnemy = true;
+        yield return new WaitForSeconds(duration);
+        PlayerView.isAttackingEnemy = false;
+        yield return new WaitForSeconds(10f);
     }
 }
+
+
+
+        //if (PlayerView.PlayerAttackTypes.GetCurrentAttackType() == PlayerAttackTypes.AttackType.TakeDown)
+        //{
+        //    PlayerView.PlayerAnimator.SetTrigger("TakeDownAttack");
+        //}
