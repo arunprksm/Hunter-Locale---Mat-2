@@ -6,9 +6,8 @@ using UnityEngine;
 public class PlayerView : MonoBehaviour
 {
     public PlayerController PlayerController;
-    public Rigidbody Rigidbody;
-    public Animator Animator; 
-    public CharacterController CharacterController;
+    public Animator PlayerAnimator;
+    public CharacterController PlayerCharacterController;
     internal Vector3 Velocity;
     public float gravity = -9.81f;
     public float groundedGravity = -10;
@@ -47,10 +46,14 @@ public class PlayerView : MonoBehaviour
         PlayerInput();
         HandleGravity();
     }
-
+    private void FixedUpdate()
+    {
+        ControlPlayer();
+    }
     private void HandleGravity()
     {
         isGrounded = Physics.CheckSphere(GroundCheck.position, groundDistance, groundMask);
+        //isGrounded = PlayerCharacterController.isGrounded;
         if (isGrounded && Velocity.y < 0)
         {
             Velocity.y = groundedGravity;
@@ -60,8 +63,7 @@ public class PlayerView : MonoBehaviour
 
     private void InitializeComponents()
     {
-        Rigidbody = GetComponent<Rigidbody>();
-        Animator = GetComponent<Animator>();
+
     }
 
     public void PlayerInput()
@@ -72,10 +74,7 @@ public class PlayerView : MonoBehaviour
         fire0 = Input.GetMouseButton(0);
         fire2 = Input.GetMouseButtonUp(0);
     }
-    private void FixedUpdate()
-    {
-        ControlPlayer();
-    }
+   
     private void ControlPlayer()
     {
         PlayerController.PlayerMovement();

@@ -27,22 +27,21 @@ public class PlayerController
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
             float angle = Mathf.SmoothDampAngle(PlayerView.transform.eulerAngles.y, targetAngle, ref PlayerView.turnSmoothVelocity, PlayerView.turnSmoothTime);
             PlayerView.transform.rotation = Quaternion.Euler(0f, angle, 0f);
-            PlayerView.CharacterController.Move(direction * PlayerModel.PlayerSpeed * Time.deltaTime);
+            PlayerView.PlayerCharacterController.Move(direction * PlayerModel.PlayerSpeed * Time.deltaTime);
             if (PlayerView.isGrounded)
             {
-                PlayerView.Animator.SetBool("IsMoving", true);
+                PlayerView.PlayerAnimator.SetBool("IsMoving", true);
                 //fall animation is false
             }
             else
             {
-                PlayerView.Animator.SetBool("IsMoving", false);
+                PlayerView.PlayerAnimator.SetBool("IsMoving", false);
                 //fall animation is true
             }
-
         }
         else
         {
-            PlayerView.Animator.SetBool("IsMoving", false);
+            PlayerView.PlayerAnimator.SetBool("IsMoving", false);
             //fall animation is false
         }
     }
@@ -50,6 +49,6 @@ public class PlayerController
     internal void Gravitycontrol()
     {
         PlayerView.Velocity.y += PlayerView.gravity * Time.deltaTime * 2;
-        PlayerView.CharacterController.Move(PlayerView.Velocity * Time.deltaTime );
+        PlayerView.PlayerCharacterController.Move(PlayerView.Velocity * Time.deltaTime );
     }
 }
