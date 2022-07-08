@@ -15,13 +15,31 @@ public class EnemyView : MonoBehaviour
     public float groundedGravity = -10;
     public Transform GroundCheck;
     public float groundDistance = 0.4f;
-    public LayerMask groundMask;
+    public LayerMask groundMask, playerMask;
     public bool isGrounded;
+    public PlayerView PlayerView;
+    public int EnemyMaxHealth = 100;
+    public int currentHealth;
+    public bool isEnemyDead;
+
+    public Transform[] attackPoint;
+    public float attackRange = 0.5f;
+    public int attackDamage = 10;
+
     internal static string[] attacks;
 
+    private void Start()
+    {
+        currentHealth = EnemyMaxHealth;
+        isEnemyDead = false;
+    }
     private void Update()
     {
         HandleGravity();
+    }
+    private void LateUpdate()
+    {
+        PlayerView = FindObjectOfType<PlayerView>();
     }
     private void HandleGravity()
     {
@@ -42,5 +60,42 @@ public class EnemyView : MonoBehaviour
     {
         EnemyWaypoint EnemyWaypoint = new(this, position);
         return EnemyWaypoint;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+
+        if(!isEnemyDead)
+        EnemyAnimator.SetTrigger("GettingHit");
+
+        if (currentHealth <= 0)
+        {
+            EnemyDead();
+        }
+    }
+
+    public Transform[] GetAttackPoint()
+    {
+        return attackPoint;
+    }
+
+    public void AttackControl()
+    {
+        Collider[] hitEnemies;
+
+        for (int i = 0; i < attackPoint.Length; i++)
+        {
+            hitEnemies = Physics.OverlapSphere(attackPoint[i].position, attackRange, playerMask);
+            foreach (Collider player in hitEnemies)
+            {
+                PlayerView.TakeDamage(attackDamage);
+            }
+        }
+    }
+    private void EnemyDead()
+    {
+        isEnemyDead = true;
+        EnemyAnimator.SetBool("EDie", true);
     }
 }

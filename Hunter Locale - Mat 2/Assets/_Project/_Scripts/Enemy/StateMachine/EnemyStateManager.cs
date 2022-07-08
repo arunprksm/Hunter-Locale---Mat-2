@@ -34,6 +34,7 @@ public class EnemyStateManager : MonoBehaviour
     private void Update()
     {
         CheckPlayer();
+        if(!EnemyView.isEnemyDead)
         currentState.UpdateState(this);
     }
     private void LateUpdate()

@@ -24,6 +24,7 @@ public class EnemyAttackState : EnemyBaseState
         if (!enemyStateManager.isAlreadyAttacked)
         {
             enemyStateManager.EnemyView.EnemyAttackFunction();
+            enemyStateManager.EnemyView.AttackControl();
             enemyStateManager.isAlreadyAttacked = true;
             enemyStateManager.StartCoroutine(ResetAttack(enemyStateManager));
         }

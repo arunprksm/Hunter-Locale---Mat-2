@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class PlayerView : MonoBehaviour
@@ -13,7 +14,6 @@ public class PlayerView : MonoBehaviour
     public float gravity = -9.81f;
     public float groundedGravity = -10;
     public Transform GroundCheck;
-
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
     public LayerMask enemyMask;
@@ -26,22 +26,28 @@ public class PlayerView : MonoBehaviour
 
     internal float playerMoveVertical = 0f;
     internal float playerMoveHorizontal = 0f;
-    internal bool fire1 = false;
-    internal bool fire0 = false;
-    internal bool fire2 = false;
 
     public float turnSmoothTime = 0.1f;
     internal float turnSmoothVelocity;
 
     public Rigidbody ShellPrefab;
-    public Transform fireTransform;
+    public bool isPlayerAttacking;
+    public Transform[] attackPoint;
+    public float attackRange = 0.5f;
+    public int attackDamage = 1;
 
-    public bool fired;
+    public int PlayerMaxHealth = 100;
+    public int currentHealth;
     internal bool playerDead;
     internal bool isAttackingEnemy;
     public float attackCooldown = 10f;
     private float targetCheckRadius = 5f;
 
+
+    private void Start()
+    {
+        currentHealth = PlayerMaxHealth;
+    }
     private void Update()
     {
         PlayerInput();
@@ -70,26 +76,77 @@ public class PlayerView : MonoBehaviour
     {
         playerMoveVertical = Input.GetAxisRaw("Vertical");
         playerMoveHorizontal = Input.GetAxisRaw("Horizontal");
-        fire1 = Input.GetMouseButtonDown(0);
-        fire0 = Input.GetMouseButton(0);
-        fire2 = Input.GetMouseButtonUp(0);
     }
    
     private void ControlPlayer()
     {
         PlayerController.PlayerMovement();
         CheckEnemy();
+        if(isPlayerAttacking) AttackControl();
     }
 
     private void CheckEnemy()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, targetCheckRadius, enemyMask);
+
         for (int i = 0; i < colliders.Length; i++)
         {
+            if (colliders[i] == null)
+            {
+                isPlayerAttacking = false;
+                return;
+            }
             EnemyView = colliders[i].GetComponent<EnemyView>();
             distToEnemy = Vector3.Distance(gameObject.transform.position, EnemyView.transform.position);
-            if (distToEnemy < targetCheckRadius && !isAttackingEnemy)
+            if (!EnemyView.isEnemyDead && distToEnemy < targetCheckRadius && !isAttackingEnemy && !EnemyView.EnemyStateManager.isAlreadyAttacked)
                 PlayerController.PlayerAttack(EnemyView);
+            SetEnemyView(EnemyView);
+        }
+    }
+    public void SetEnemyView(EnemyView enemyView) => EnemyView = enemyView;
+    public EnemyView GetEnemyView() => EnemyView;
+
+    public void AttackControl()
+    {
+        Collider[] hitEnemies;
+        for (int i = 0; i < attackPoint.Length; i++)
+        {
+            hitEnemies = Physics.OverlapSphere(attackPoint[i].position, attackRange, enemyMask);
+            foreach (Collider Enemies in hitEnemies)
+            {
+                GetEnemyView().TakeDamage(attackDamage);
+            }
+        }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        currentHealth -= damage;
+
+        if (!playerDead)
+            PlayerAnimator.SetTrigger("PGettingHit");
+
+        if (currentHealth <= 0)
+        {
+            PlayerDead();
+        }
+    }
+
+    private void PlayerDead()
+    {
+        playerDead = true;
+        PlayerAnimator.SetBool("PDie", true);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        for (int i = 0; i < attackPoint.Length; i++)
+        {
+            if (attackPoint[i] == null)
+            {
+                return;
+            }
+            Gizmos.DrawSphere(attackPoint[i].position, attackRange);
         }
     }
 }

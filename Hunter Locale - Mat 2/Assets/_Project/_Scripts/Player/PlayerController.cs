@@ -52,7 +52,6 @@ public class PlayerController
 
     internal void PlayerAttack(EnemyView target)
     {
-        
         PlayerView.attacks = new string[] { "Punch", "Combo", "Kick", "TakeDownAttack" };
         //Attack nothing in case target is null
         if (target == null && PlayerView.PlayerAnimator.GetBool("IsMoving"))
@@ -87,9 +86,11 @@ public class PlayerController
     void AttackType(string attackTrigger, float cooldown, EnemyView target)
     {
         PlayerView.PlayerAnimator.SetTrigger(attackTrigger);
-
+        PlayerView.isPlayerAttacking = true;
         if (target == null)
+        {
             return;
+        }
 
         if (PlayerView.attackCoroutine != null)
             PlayerView.StopCoroutine(PlayerView.attackCoroutine);
