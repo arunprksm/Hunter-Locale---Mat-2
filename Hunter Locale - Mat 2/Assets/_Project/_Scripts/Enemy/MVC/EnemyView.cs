@@ -36,7 +36,6 @@ public class EnemyView : MonoBehaviour
     private void Update()
     {
         HandleGravity();
-        if (!EnemyStateManager.isAlreadyAttacked) AttackControl();
     }
     private void LateUpdate()
     {
@@ -75,13 +74,20 @@ public class EnemyView : MonoBehaviour
             EnemyDead();
         }
     }
+
+    public Transform[] GetAttackPoint()
+    {
+        return attackPoint;
+    }
+
     public void AttackControl()
     {
         Collider[] hitEnemies;
+
         for (int i = 0; i < attackPoint.Length; i++)
         {
             hitEnemies = Physics.OverlapSphere(attackPoint[i].position, attackRange, playerMask);
-            foreach (Collider EnemyView in hitEnemies)
+            foreach (Collider player in hitEnemies)
             {
                 PlayerView.TakeDamage(attackDamage);
             }

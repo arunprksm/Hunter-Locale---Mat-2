@@ -112,7 +112,7 @@ public class PlayerView : MonoBehaviour
         for (int i = 0; i < attackPoint.Length; i++)
         {
             hitEnemies = Physics.OverlapSphere(attackPoint[i].position, attackRange, enemyMask);
-            foreach (Collider EnemyView in hitEnemies)
+            foreach (Collider Enemies in hitEnemies)
             {
                 GetEnemyView().TakeDamage(attackDamage);
             }

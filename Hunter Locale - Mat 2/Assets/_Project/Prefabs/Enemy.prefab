@@ -127,8 +127,8 @@ MonoBehaviour:
   - {fileID: 77372183593133184}
   - {fileID: 5008371095854518261}
   - {fileID: 6205165845169984022}
-  attackRange: 0.5
-  attackDamage: 1
+  attackRange: 0.3
+  attackDamage: 10
 --- !u!114 &7993174650903276624
 MonoBehaviour:
   m_ObjectHideFlags: 0
